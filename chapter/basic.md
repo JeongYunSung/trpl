@@ -166,3 +166,118 @@ fn main() {
 위 코드블록 중 y식을 잘보면 마지막 x + 1뒤에 세미콜론이 없는걸 볼 수 있는데, 세미콜론을 붙이게되면 이는 식으로 간주하여 반환값으로 사용할 수 없다 ( 블록의 마지막에서만 해당 )
 
 반환은 표현식만을 반환할 수 있기 때문이다
+
+## 제어 흐름문
+
+### if ~ else if ~ else
+
+일반적인 사용예
+
+```rust
+fn main() {
+    let number = 6;
+
+    if number % 4 == 0 {
+        println!("number is divisible by 4");
+    } else if number % 3 == 0 {
+        println!("number is divisible by 3");
+    } else if number % 2 == 0 {
+        println!("number is divisible by 2");
+    } else {
+        println!("number is not divisible by 4, 3, or 2");
+    }
+}
+```
+
+if문은 표현식으로 이를 활용한 방법
+
+```rust
+fn main() {
+    let condition = true;
+    let number = if condition { 5 } else { 6 };
+
+    println!("The value of number is: {number}");
+}
+```
+
+## 반복문
+
+### loop
+
+loop는 흔히 말하는 무한루프와 같은 개념으로 개발자가 명시적으로 멈추지 않는 이상 계속 반복한다
+
+아래는 중첩 loop구조로 label을 주어 특정 loop에 대해서 제어를 할 수 있다
+```rust
+fn main() {
+    let mut count = 0;
+    'counting_up: loop {
+        println!("count = {count}");
+        let mut remaining = 10;
+
+        loop {
+            println!("remaining = {remaining}");
+            if remaining == 9 {
+                break;
+            }
+            if count == 2 {
+                break 'counting_up;
+            }
+            remaining -= 1;
+        }
+
+        count += 1;
+    }
+    println!("End count = {count}");
+}
+```
+
+loop에서 break를 사용하면 표현식으로서 활용할 수 있다
+
+```rust
+fn main() {
+    let mut counter = 0;
+
+    let result = loop {
+        counter += 1;
+
+        if counter == 10 {
+            break counter * 2;
+        }
+    };
+
+    println!("The result is {result}");
+}
+```
+
+### while
+
+조건문이 true인동안 반복한다
+
+```rust
+fn main() {
+    let mut number = 3;
+
+    while number != 0 {
+        println!("{number}!");
+
+        number -= 1;
+    }
+
+    println!("LIFTOFF!!!");
+}
+```
+
+### for
+
+Rust에서 제공하는 Range를 활용해서 하면 편하다
+
+Range는 kotlin에서 until, n..m과 같은 개념이라고 보면된다
+
+```rust
+fn main() {
+    for number in (1..4).rev() {
+        println!("{number}!");
+    }
+    println!("LIFTOFF!!!");
+}
+```
