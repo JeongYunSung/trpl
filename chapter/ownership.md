@@ -94,6 +94,12 @@ fn gives_ownership() -> String {
 
 gives_ownership함수에서 리턴한 문자열은 s1로 소유권이 이전된다.
 
+## Copy, Drop 트레잇
+
+스택에서 값을 복사할 수 있는 Copy트레잇이 있으며, 스코프가 종료되면 값을 버리는 Drop트레잇이 있다.
+
+기본적으로 primitive type들은 Copy트레잇을 구현하고 있다 ( 정수, bool, 부동 소수점, char, (i32, i32)와 같은 튜플 )
+
 ## 참조자와 빌림
 
 ```rust
