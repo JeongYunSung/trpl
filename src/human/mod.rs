@@ -1,7 +1,7 @@
 pub mod human_crate;
 
 use crate::coin::coin_crate::get_coin;
-use crate::human::human_crate::get_human;
+use super::human::human_crate::get_human;
 
 pub struct Human {
     pub name: String,

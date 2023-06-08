@@ -5,8 +5,8 @@ use math::add;
 use trpl::lib_print;
 use std::string::ToString;
 use crate::human::Human;
-use crate::coin::*;
-use crate::water::*;
+use self::coin::*;
+use self::water::*;
 
 pub mod coin;
 pub mod human;

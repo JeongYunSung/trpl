@@ -1,8 +1,7 @@
 pub mod coin_crate;
 
 use crate::coin::coin_crate::*;
-use crate::coin::coin_crate::get_coin;
-use crate::human::human_crate::get_human;
+use super::human::human_crate::get_human;
 
 #[derive(Debug)] // so we can inspect the state in a minute
 pub enum UsState {
