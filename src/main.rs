@@ -5,11 +5,11 @@ use math::add;
 use trpl::lib_print;
 use std::string::ToString;
 use crate::human::Human;
-use self::coin::*;
-use self::water::*;
+use self::{coin::*, water::*, cup::*};
 
 pub mod coin;
 pub mod human;
+pub mod cup;
 
 fn main() {
     lib_print();
@@ -34,6 +34,9 @@ fn main() {
     drink();
 
     println!("Hello, {}!", add(1, 2));
+
+    put_hand_in_cup();
+    put_off();
 }
 
 mod water {
