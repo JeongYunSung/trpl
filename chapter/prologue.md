@@ -91,3 +91,23 @@ cargo run
 ```shell
 cargo check
 ```
+
+## Naming Convention
+
+| usage          | rule             | example                                                    |
+|----------------|------------------|------------------------------------------------------------|
+| crate          | single word      | Chat, usually single word                                  |
+| mod            | snake_case       | chat_server                                                |
+| function       | snake_case       | join_server()                                              |
+| varient        | UpperCamelCase   | Internet                                                   |
+| enum           | UpperCamelCase   | IpAddr                                                     |
+| local variable | snake_case       | ip_addr                                                    |
+| constants      | UPPER_SNAKE_CASE | PI                                                         |
+| Struct Type    | UpperCamelCase   | Type                                                       |
+| Traits         | UpperCamelCase   | trait                                                      |
+| Generic        | UpperCamelCase   | T, R, U, usually single uppercase letter                   |
+| Macro          | snake_case!      | println!                                                   |
+| constructor    | new              | new                                                        |
+| ceonversion    | as               | as(free) : borrowed -> borrowed                            |
+| -              | to               | to(expensive) : b -> b, b -> owned(non-copy), o -> o(copy) |
+| -              | into             | into : owned -> owned(non-copy)                            |
