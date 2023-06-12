@@ -1,0 +1,11 @@
+[workspace]
+
+members = [
+    "basic",
+    "math",
+    "collection",
+    "advanced",
+    "error",
+    "functional",
+    "test_crate"
+]
