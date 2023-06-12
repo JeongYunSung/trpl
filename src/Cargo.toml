@@ -7,5 +7,6 @@ members = [
     "advanced",
     "error",
     "functional",
-    "test_crate"
+    "test_crate",
+    "smart_pointer"
 ]
