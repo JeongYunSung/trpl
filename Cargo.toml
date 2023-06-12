@@ -3,6 +3,7 @@ name = "trpl"
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
+description = "공부용 배포 Crate입니다."
 
 [dependencies]
 math = { version = "0.1.0", path = "src/math" }
