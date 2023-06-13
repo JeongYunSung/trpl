@@ -23,6 +23,10 @@ name = "math"
 version = "0.1.0"
 
 [[package]]
+name = "object"
+version = "0.1.0"
+
+[[package]]
 name = "smart_pointer"
 version = "0.1.0"
 
