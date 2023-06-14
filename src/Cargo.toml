@@ -9,5 +9,6 @@ members = [
     "functional",
     "test_crate",
     "smart_pointer",
-    "object"
+    "object",
+    'other'
 ]
