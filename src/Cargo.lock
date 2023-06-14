@@ -11,6 +11,10 @@ name = "collection"
 version = "0.1.0"
 
 [[package]]
+name = "concurrency"
+version = "0.1.0"
+
+[[package]]
 name = "error"
 version = "0.1.0"
 

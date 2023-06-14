@@ -10,5 +10,6 @@ members = [
     "test_crate",
     "smart_pointer",
     "object",
-    'other'
+    "other",
+    "concurrency",
 ]
