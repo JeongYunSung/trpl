@@ -1,3 +1,4 @@
+use std::cell::RefCell;
 use std::ops::Deref;
 use std::rc::Rc;
 use crate::List::{Cons, Nil};
@@ -33,4 +34,11 @@ pub fn print_rc_pointer() {
         println!("count after creating c = {}", Rc::strong_count(&a));
     }
     println!("count after c goes out of scope = {}", Rc::strong_count(&a));
+}
+
+pub fn print_ref_cell_pointer() {
+    let rec = RefCell::new(String::from("Hello"));
+
+    rec.borrow_mut().push_str(" World");
+    println!("{}", rec.into_inner());
 }
