@@ -12,4 +12,5 @@ members = [
     "object",
     "other",
     "concurrency",
+    "grep",
 ]
