@@ -1,9 +1,8 @@
-static mut TEST: i32 = 5;
+extern crate other;
+
+use other::{*};
 
 fn main() {
-    unsafe {
-        println!("{}", TEST);
-        TEST += 1;
-        println!("{}", TEST);
-    }
+    raw_pointer();
+    unsafe_static();
 }
