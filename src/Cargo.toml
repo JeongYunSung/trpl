@@ -13,5 +13,6 @@ members = [
     "other",
     "concurrency",
     "grep",
-    "tokio",
+    "async",
+    "async_client",
 ]

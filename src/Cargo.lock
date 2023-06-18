@@ -31,6 +31,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "async"
+version = "0.1.0"
+dependencies = [
+ "mini-redis",
+ "tokio",
+]
+
+[[package]]
 name = "async-stream"
 version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -50,6 +58,14 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 2.0.18",
+]
+
+[[package]]
+name = "async_client"
+version = "0.1.0"
+dependencies = [
+ "mini-redis",
+ "tokio",
 ]
 
 [[package]]
@@ -283,7 +299,7 @@ dependencies = [
  "atoi",
  "bytes",
  "structopt",
- "tokio 1.28.2",
+ "tokio",
  "tokio-stream",
  "tracing",
  "tracing-futures",
@@ -608,14 +624,6 @@ dependencies = [
 
 [[package]]
 name = "tokio"
-version = "0.1.0"
-dependencies = [
- "mini-redis",
- "tokio 1.28.2",
-]
-
-[[package]]
-name = "tokio"
 version = "1.28.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "94d7b1cfd2aa4011f2de74c2c4c63665e27a71006b0a192dcd2710272e73dfa2"
@@ -652,7 +660,7 @@ checksum = "397c988d37662c7dda6d2208364a706264bf3d6138b11d436cbac0ad38832842"
 dependencies = [
  "futures-core",
  "pin-project-lite",
- "tokio 1.28.2",
+ "tokio",
 ]
 
 [[package]]
