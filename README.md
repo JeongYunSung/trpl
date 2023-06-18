@@ -26,3 +26,4 @@
 - [simple grep](./src/grep)
 - [mini-redis-server](./src/async_server)
 - [mini-redis-client](./src/async_client)
+- [wasm](./src/wasm)

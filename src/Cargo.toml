@@ -15,4 +15,5 @@ members = [
     "grep",
     "async_server",
     "async_client",
+    "wasm",
 ]
