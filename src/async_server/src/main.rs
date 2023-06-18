@@ -8,9 +8,5 @@ use async_server::*;
 /// #[tokio::main]은 tokio에서 제공하는 매크로로 async_server func에 붙일 시 자동으로 blocking을 처리해줌
 #[tokio::main]
 async fn main() {
-    let increment = Increment {
-        mutex: Mutex::new(10)
-    };
-    increment_mutex(&increment).await;
-    println!("{}", increment.mutex.into_inner().unwrap());
+    start_server().await;
 }
