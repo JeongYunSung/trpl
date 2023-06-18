@@ -6,11 +6,13 @@
 extern crate tokio;
 extern crate mini_redis;
 
+mod sharded_map;
+
 use bytes::Bytes;
 use std::collections::HashMap;
 use tokio::{task, task::yield_now};
 use std::rc::Rc;
-use std::sync::{Arc, Mutex};
+use std::sync::{Arc, Mutex, MutexGuard};
 use tokio::net::{TcpListener, TcpStream};
 use mini_redis::{Connection, Frame};
 
@@ -109,4 +111,35 @@ pub async fn yield_and_send() {
 
         yield_now().await;
     });
+}
+
+/// mutex_guard또한 send trait이 구현되어 있지 않음으로 await시 에러 발생
+/// 따라서 강제로 drop시켜줘야 함
+///
+/// 이는 심각한 문제 일 수 있는 것이. A Thread에서 Lock을 걸고 await으로 대기한 뒤, B Thread에서 해당 Task를 할당받아
+/// Lock을 거려고 하는데 A에서 해당 Lock에대해 release를 하지 않았기에, 교착상태가 될 수 있다
+///
+/// Tokio::Mutex를 이용할 시 위와같은 비동기 상황에서도 락을 사용할 수 있게 해주나, 리소스가 더 많이 들 수 있다. 아래 메서드방식을 이용해보자
+pub async fn mutex_guard_drop(mutex: &Mutex<i32>) {
+    let mut lock: MutexGuard<i32> = mutex.lock().unwrap();
+    *lock += 1;
+    drop(lock);
+
+    yield_and_send().await;
+}
+
+pub struct Increment {
+    pub mutex: Mutex<i32>,
+}
+
+impl Increment {
+    fn increment(&self) {
+        let mut lock  = self.mutex.lock().unwrap();
+        *lock += 1;
+    }
+}
+
+pub async fn increment_mutex(increment: &Increment) {
+    increment.increment();
+    yield_and_send().await;
 }
