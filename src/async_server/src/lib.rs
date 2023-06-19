@@ -6,7 +6,10 @@
 extern crate tokio;
 extern crate mini_redis;
 
+mod tokio_io;
 mod sharded_map;
+
+pub use tokio_io::*;
 
 use bytes::Bytes;
 use std::collections::HashMap;
