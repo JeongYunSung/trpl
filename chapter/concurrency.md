@@ -105,6 +105,8 @@ Rc, RefCell의 경우 Send Trait을 구현하지 않았다. ( 원시 포인터�
 Sync가 구현된 타입이 여러 스레드로부터 안전하게 참조 가능함을 나타내며, &T를 Send처럼 참조자가 안전하게 보내질 수 있다면 T는 Sync하다.
 기초 타입들은 Sync하며, Sync타입으로만 구성된 타입또한 Sync하다.
 
+( 불변참조를 통해 수정할 수 있으므로 동시에 액세스 하는것이 안전하지 않은 Cell이 Sync하지 않는 좋은 예시이다 )
+
 ## Async/Await
 
 Async로 비동기 함수, Await으로 해당 함수에 대해 Blocking을 할 수 있음
