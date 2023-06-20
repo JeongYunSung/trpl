@@ -73,8 +73,9 @@ impl Task {
     }
 }
 
-// Waker를 hooking하기 위해선 low level API인 vtable을 사용해나,
-// 이 부분은 손이 많이 가기에 futures의 ArcWake Trait을 사용한다.
+// Waker를 hooking하기 위해선 low level API인 vtable을 사용해야 한다. RawWakerVTable
+// RawWakerVTable은 쉽게 어떤 Waker를 참조하고 있는지 vtable로서 제공해주는 구조체이다.
+// 이 부분은 핸들링 하기엔 손이 많이 가기에 futures의 ArcWake Trait을 사용한다.
 impl ArcWake for Task {
 
     fn wake_by_ref(arc_self: &Arc<Self>) {
