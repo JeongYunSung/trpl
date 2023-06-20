@@ -22,7 +22,7 @@ pub fn execute() {
 
     mini_tokio.spawn(async {
         let when = Instant::now() + Duration::from_millis(10);
-        let future = Delay { when };
+        let future = Delay { when, waker: None };
 
         let out = future.await;
         assert_eq!(out, "done");
