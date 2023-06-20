@@ -16,4 +16,6 @@ members = [
     "async_server",
     "async_client",
     "wasm",
+    "echo_server",
+    "echo_client",
 ]
