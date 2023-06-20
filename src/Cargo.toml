@@ -18,4 +18,6 @@ members = [
     "wasm",
     "echo_server",
     "echo_client",
+    "framing",
+    "playground",
 ]
