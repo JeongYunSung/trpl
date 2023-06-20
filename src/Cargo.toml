@@ -20,4 +20,5 @@ members = [
     "echo_client",
     "framing",
     "playground",
+    "tokio_study",
 ]
