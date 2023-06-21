@@ -162,3 +162,98 @@ Executors는 여러가지 방식으로 구현될 수 있는데, 대표적으로 
 2. Waker.wake_by_ref는 효과적이고 암묵적이게 소유한 Waker에 대해서 wake처리를 한다.
 3. Waker.wake를 통해 Waker를 소비하면서 wake처리를 강제적으로 할 수 있다.
 4. 하나의 Future가 여러 Thread를 오가며 polling을 할 수 있는데, 이 때는 가장 마지막에 있는 Task가 가지고있는 Waker를 통해서 wake해주어야 한다.
+
+## Select
+
+비동기를 다룰때 Thread Spawn하는 방식과 여러 Async를 한번에 실행시켜 이 중 패턴에 통과한 Future에 대해서만 처리하는 Select방식이 있다.
+
+```rust
+tokio::select! {
+    _ = async {} => {
+        out.push_str("1");
+    }
+    _ = async {} => {
+        out.push_str("2");
+    }
+}
+```
+위의 코드는 머가 먼저 실행될지 모른다. 허나 확실한건 하나의 Future만이 실행되며 실행중이던 Future는 Scope가 종료되면서 Drop된다.
+> 50%확률로 1, 50%확률로 2가 출력되는거 같음
+
+### Poll로 표현
+```rust
+fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
+    if let Poll::Ready(val) = Pin::new(&mut self.rx1).poll(cx) {
+        println!("rx1 completed first with {:?}", val);
+        return Poll::Ready(())
+    }
+
+    if let Poll::Ready(val) = Pin::new(&mut self.rx2).poll(cx) {
+        println!("rx2 completed first with {:?}", val);
+        return Poll::Ready(())
+    }
+
+    Poll::Pending
+}
+```
+위 poll함수에서 랜덤요소가 좀더 추가된게 결국 Select와 같다고 보면 된다.
+
+둘 중 어떤 Future가 Ready가 되느냐에 따라 rx1가 출력될지, rx2가 출력될지 결정되기 때문이다.
+
+Future의 poll을 구현할 땐 중요한점이 Waker의 wake를 해야하는데, 이 부분에 대해선 channel의 poll에게 context를 위임하여 처리시키고 있다.
+
+### 문법
+
+`<pattern> = <async expression> => <handler>`로 select는 표현이 된다.
+
+1. pattern은 async expression의 reuslt를 handler가 사용할 수 있게 하는 변수로 쓰이거나 혹은 else로 쓰인다.
+2. async expression은 말그대로 비동기 함수에 대해서 표현한다.
+3. handler는 해당 비동기 함수의 처리가 ready인 경우 진행되는 process이다.
+4. select!는 task와 다르게 borrow를 사용한다.
+5. 만약 async expression에서 참조자를 기준으로 await을 할경우 pin을 꼭 적용해주어야 한다
+> Pin을 적용해주지 않으면 개체가 소멸되거나 다른 메모리로 이전됐을 경우 참조자는 댕글링 포인터가 되므로 문제가 발생
+
+```rust
+let out = tokio::select! {
+    res = async {
+        "res"
+    } => {
+        res
+    }
+    res = async {
+        "res1"
+    } => {
+        res
+    }
+};
+```
+Return Value로서의 활용
+
+```rust
+let listener = TcpListener::bind("localhost:3465").await?;
+
+tokio::select! {
+    res = async {
+        let (socket, _) = listener.accept().await?;
+
+        Ok::<_, io::Error>(())
+    } => {
+        res?;
+    }
+}
+```
+에러 전파
+
+```rust
+let mut out = String::new();
+
+tokio::select! {
+    _ = async {} => {
+        out.push_str("1");
+    }
+    _ = async {} => {
+        out.push_str("2");
+    }
+}
+```
+mutable reference사용
