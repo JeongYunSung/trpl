@@ -2,11 +2,14 @@ use std::ops::Add;
 use crate::generic::{Composite, MyType};
 
 mod bytes;
+mod my_macro;
 mod generic;
 mod associated_type;
 mod underscore_variable;
 
 fn main() {
+    println!("{}", my_str!("1", "2", "3"));
+
     let my_type1 = MyType {
         value: 1
     };
