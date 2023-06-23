@@ -8,28 +8,9 @@ mod associated_type;
 mod underscore_variable;
 
 fn main() {
-    println!("{}", my_str!("1", "2", "3"));
+    let num = four!();
 
-    let my_type1 = MyType {
-        value: 1
-    };
-
-    my_type1.print_add();
-
-    let my_type2 = MyType {
-        value: "hello"
-    };
-
-    my_type2.print();
-
-    let my_type3 = MyType {
-        value: Composite {
-            value: 1
-        }
-    };
-
-    my_type3.print_add();
-    my_type3.print();
+    println!("{num}")
 }
 
 fn buf_slice() {

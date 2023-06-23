@@ -10,3 +10,8 @@ macro_rules! my_str {
         }
     };
 }
+
+#[macro_export]
+macro_rules! four {
+    () => { 1 + 3 };
+}
