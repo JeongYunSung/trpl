@@ -2,15 +2,16 @@ use std::ops::Add;
 use crate::generic::{Composite, MyType};
 
 mod bytes;
-mod my_macro;
 mod generic;
+mod my_macro;
+mod fibonacci;
 mod associated_type;
 mod underscore_variable;
 
 fn main() {
-    let num = four!();
+    let fib = recurrence![a[n]: u64 = 0, 1; ...; a[n-2] + a[n-1]];
 
-    println!("{num}")
+    for e in fib.take(10) { println!("{}", e) }
 }
 
 fn buf_slice() {
