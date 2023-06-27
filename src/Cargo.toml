@@ -21,4 +21,5 @@ members = [
     "framing",
     "playground",
     "tokio_study",
+    "game_of_life",
 ]
