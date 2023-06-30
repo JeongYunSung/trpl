@@ -42,18 +42,18 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 
 cargo test는 test로 전달할 인수와 테스트 바이너리에 전달할 인수를 구분짓기위해 -- 구분자를 쓴다.
 ```shell
-cargo test args -- --test-threads=1
+cargo tests args -- --tests-threads=1
 ```
 방식은 위와같다. 위 케이스는 테스트를 실행할 스레드의 개수를 1개로 제한한다 ( 직렬 실행 )
 
 ```shell
-cargo test {test_name}
+cargo tests {test_name}
 ```
 위 실행 결과는 SQL로치면 whete test_name like '{test_name}%' 이런 느낌이다.
 즉 해당 test_name과 일치하거나 start with하는 테스트를 실행한다.
 
 ```shell
-cargo test --test 파일명
+cargo tests --tests 파일명
 ```
 위 커맨드를 통해 특정 파일에 대해서만 테스트를 진행할 수도 있다.
 
