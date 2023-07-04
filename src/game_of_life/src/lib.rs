@@ -1,3 +1,4 @@
+extern crate web_sys;
 extern crate wasm_bindgen;
 
 use std::fmt;
@@ -44,15 +45,8 @@ impl Universe {
         count
     }
 
-    pub fn get_cells(&self) -> &[Cell] {
-        &self.cells
-    }
-
-    pub fn set_cells(&mut self, cells: &[(u32, u32)]) {
-        for (row, col) in cells.iter().cloned() {
-            let idx = self.get_index(row, col);
-            self.cells[idx] = Cell::Alive;
-        }
+    pub fn get_cells(&self) -> *const Cell {
+        self.cells.as_ptr()
     }
 
     pub fn width(&self) -> u32 {
@@ -78,6 +72,7 @@ impl Universe {
     }
 
     pub fn tick(&mut self) {
+        log!("Hello from Rust!");
         let mut next = self.cells.clone();
 
         for row in 0..self.height {
@@ -138,6 +133,13 @@ impl fmt::Display for Universe {
         }
 
         Ok(())
+    }
+}
+
+#[macro_export]
+macro_rules! log {
+    ( $( $t:tt )* ) => {
+        web_sys::console::log_1(&format!( $( $t )* ).into());
     }
 }
 
