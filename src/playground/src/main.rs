@@ -1,3 +1,6 @@
+use std::io;
+use std::io::Write;
+use std::net::{TcpListener, TcpStream};
 use std::ops::Add;
 use crate::generic::{Composite, MyType};
 
@@ -9,9 +12,8 @@ mod associated_type;
 mod underscore_variable;
 
 fn main() {
-    let fib = recurrence![a[n]: u64 = 0, 1; ...; a[n-2] + a[n-1]];
-
-    for e in fib.take(10) { println!("{}", e) }
+    let mut result = TcpStream::connect("127.0.0.1:8002").unwrap();
+    let _ = result.write_all(b"1");
 }
 
 fn buf_slice() {

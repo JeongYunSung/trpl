@@ -22,4 +22,5 @@ members = [
     "playground",
     "tokio_study",
     "game_of_life",
+    "netpoller",
 ]
