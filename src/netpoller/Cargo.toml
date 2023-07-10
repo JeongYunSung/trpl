@@ -4,3 +4,5 @@ version = "0.1.0"
 
 [dependencies]
 polling = "2.8.0"
+kqueue = "1.0.7"
+libc = "^0.2.17"
