@@ -23,4 +23,10 @@ members = [
     "tokio_study",
     "game_of_life",
     "netpoller",
+    "tauri",
 ]
+
+[workspace.package]
+authors = "JeongYunSung"
+repository = "https://github.com/JeongYunSung/trpl"
+edition = "2021"
